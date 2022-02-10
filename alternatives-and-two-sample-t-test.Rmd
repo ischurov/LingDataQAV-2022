@@ -1,0 +1,160 @@
+---
+title: "Alternatives and two-sample t-test"
+author: Ilya Schurov
+output: html_notebook
+---
+[Linguistic Data: Quantitative Analysis and Visualisation: linguistic theory](http://math-info.hse.ru/s21/m)
+
+## Alternatives
+
+```{r}
+my_sample <- c(80, 90, 100, 100, 130)
+mu0 <- 125
+mean(my_sample)
+```
+
+$$H_0\colon \mu > \mu_0$$
+
+```{r}
+t.test(my_sample, mu = mu0, alternative = 'greater')
+```
+
+```{r}
+x <- seq(-2.9881, 5, 0.01)
+curve(dt(t, df=4), from = -5, to=5, xname = 't')
+
+# add shading
+polygon(c(x[1], x, x[length(x)]), 
+        c(0, dt(x, df=4), 0), col="steelblue")
+```
+With this alternative, p-value is "probability to get sample mean that is equal to sample mean we actually obtained (100) or more (i.e. "more favoring alternative"), provided that null hypothesis holds (i.e. population mean = 125)".
+
+## Exercise
+
+_Find p-value for alternative = 'less'_
+
+$$H_1\colon \mu < \mu_0$$
+
+We can do it without function `t.test`. It should be equal to the opposite area:
+
+```{r}
+x <- seq(-5, -2.9881, 0.01)
+curve(dt(t, df=4), from = -5, to=5, xname='t')
+
+# add shading
+polygon(c(x[1], x, x[length(x)]), 
+        c(0, dt(x, df=4), 0), col="steelblue")
+```
+The first area (0.9798) is probability that $\bar x$ is larger than 100 provided that null hypothesis holds. The second area (we are trying te find) is probability that $\bar x$ is less than 100 provided than null hypothesis holds. As $\bar x$ either larger or less than 100 (it is almost impossible that it's equal to 100 exactly), then sum of probabilities should be 1. So, p-value for alternative "less" is
+
+```{r}
+1 - 0.9798
+```
+
+Let's check it:
+
+```{r}
+t.test(my_sample, mu = mu0, alternative = 'less')
+```
+Exact hit!
+
+## Exercise
+
+_Find p-value for alternative = 'two.sided'_
+
+Now we have:
+
+$$H_1\colon \mu \ne \mu_0$$
+Again, we can do it without `t.test`, then check.
+
+```{r}
+x <- seq(-5, -2.9881, 0.01)
+curve(dt(t, df=4), from = -5, to=5, xname='t')
+
+# add shading
+polygon(c(x[1], x, x[length(x)]), 
+        c(0, dt(x, df=4), 0), col="steelblue")
+
+# add shading symmetrical
+polygon(-c(x[1], x, x[length(x)]), 
+        c(0, dt(-x, df=4), 0), col="steelblue")
+
+```
+Now we can reject null hypothesis either if $\bar x$ is too small or if $\bar x$ is too large. Thus p-value is an area of symmetric figure shown on the picture. And it's twice as large as p-value for alternative "less".
+
+```{r}
+0.02021 * 2
+```
+
+Let's check
+
+```{r}
+t.test(my_sample, mu = mu0, alternative = 'two.sided')
+```
+## Two-sample t-test
+```{r}
+x <- c(3, 2, 5, 1, 7) # treatment group
+y <- c(4, 5, 3, 5, 7, 8) # control group
+t.test(x, y, alternative = 'less')
+```
+```{r}
+t.test(x, y, alternative = 'two.sided')
+```
+```{r}
+t.test(rep(x, 3), rep(y, 3), alternative = 'less')
+```
+```{r}
+dat <- read.csv("https://bit.ly/39Fr0gD")
+dat
+```
+### Is it true that time for round sounds is greater or less than time for unrounded sounds?
+
+Get values of time variable where roundness == "round"
+
+```{r}
+round_times <- dat[dat$roundness == "round", "time"]
+unrounded_times <- dat[dat$roundness == "unrounded", "time"]
+```
+
+```{r}
+round_times[1:20]
+```
+```{r}
+mean(round_times)
+sd(round_times)
+length(round_times)
+```
+
+```{r}
+mean(unrounded_times)
+sd(unrounded_times)
+length(unrounded_times)
+```
+
+## Exercise
+Use `t.test` to test a hypothesis
+and give an answer: can we say that 
+there is a statistically significant
+difference between round and unrounded times?
+
+```{r}
+t.test(round_times, unrounded_times)
+```
+
+p-value = 0.33 > 0.05 => do not reject H0
+
+This can be made easier:
+```{r}
+t.test(time ~ roundness, data=dat)
+```
+Let's repeat with different variable:
+
+```{r}
+t.test(vowel.dur ~ roundness, data=dat)
+```
+Now we have very small p-value ($\texttt{1.587e-05} = 1.587\cdot 10^{-5}=0.00001587$, that's smaller than 0.05 — therefore, reject null hypothesis, i.e. we have statistically significant difference.
+
+### Visualization
+```{r}
+boxplot(vowel.dur ~ roundness, data=dat)
+```
