@@ -16,7 +16,7 @@ output:
 # Linguistic Data: Quantitative Analysis and Visualisation
 ## Linguistic theory group
 
-_[Course webpage](http://math-info.hse.ru/s20/g)_
+_[Course webpage](http://math-info.hse.ru/s21/m)_
 
 In your final project, you have to conduct empirical linguistic research using methods discussed during the course. Project consists of the following steps:
 
