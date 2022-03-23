@@ -103,6 +103,8 @@ t.test(x, y, alternative = 'two.sided')
 ```{r}
 t.test(rep(x, 3), rep(y, 3), alternative = 'less')
 ```
+Let's use data from thesis "Vowel duration and aspiration effects in Icelandic" by Stefano Coretta, University of York, 2016.
+
 ```{r}
 dat <- read.csv("https://bit.ly/39Fr0gD")
 dat
