@@ -1,5 +1,6 @@
 ---
 title: "Final projects"
+date: March 23, 2022
 header-includes:
   - \usepackage{fontspec}
   - \setmainfont{CMU Serif}
@@ -48,7 +49,7 @@ During this step, you have to describe all the aspects of your future research. 
 - What kind of data you are going to collect? Which variables will be presented in your dataset? How exactly would you collect your data?
 - How your hypotheses are stated in statistical terms? What kind of statistical tools (i.e. statistical tests, regression models, etc) would you use to test your hypotheses and answer the research question? Where statistical tests are involved, what is your null hypothesis and what is your alternative?
 
-As a result of first two steps, you have to prepare a document entitled *Research proposal* (one or two pages long) and submit it due **April 25**.
+As a result of first two steps, you have to prepare a document entitled *Research proposal* (one or two pages long) and submit it due **April 27**.
 
 We are going to provide feedback based on your research proposals to guide your research. This means that you don't have to strictly follow your proposed plan: it can be updated according to the feedback, new methods can be introduced that we will discuss after the submission of proposals, etc. 
 
@@ -111,6 +112,6 @@ The following aspects of your work will be assessed:
 To summarize, here is a timeline (end of day is 23:59:59 MSK):
 
 - March 23: this document is published.
-- April 25: research proposals are submitted.
+- April 27: research proposals are submitted.
 - June 20: final papers are submitted.
 - June 21 — June 30: exam conducted at the date specified by the study office.
